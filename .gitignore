@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# Project directories
+x64/
+Debug/
+Release/
+AlgoVis/Debug/
+AlgoVis/x64/
+AlgoVis/Release/
+*.user
+.vs/
