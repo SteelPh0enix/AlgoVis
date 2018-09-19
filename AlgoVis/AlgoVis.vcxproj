@@ -123,11 +123,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ArrayDrawer.cpp" />
+    <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="Visualizator.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlgoManager.hpp" />
+    <ClInclude Include="ArrayDrawer.hpp" />
+    <ClInclude Include="HUD.hpp" />
+    <ClInclude Include="TickWatcher.hpp" />
+    <ClInclude Include="Visualizator.hpp" />
     <ClInclude Include="AlgoWatcher.hpp" />
+    <ClInclude Include="json.hpp" />
+    <ClInclude Include="Settings.hpp" />
     <ClInclude Include="sorts.hpp" />
     <ClInclude Include="utils.hpp" />
   </ItemGroup>

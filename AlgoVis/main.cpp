@@ -1,11 +1,43 @@
 #include <SFML/Graphics.hpp>
-#include "algowatcher.hpp"
-#include "sorts.hpp"
-#include <random>
-#include <chrono>
-#include <vector>
 #include <iostream>
+#include <exception>
+#include "Settings.hpp"
+#include "Visualizator.hpp"
 
+int main() {
+	try {
+		if (!Settings::get().load("settings.json")) {
+			std::cerr << "Unable to load settings!\n";
+			return 1;
+		}
+	} catch (std::exception const& e) {
+		std::cerr << "Invalid settings JSON: " << e.what() << '\n';
+		return 2;
+	}
+
+	auto windowDimension = Settings::get().getWindowDimensions();
+	sf::RenderWindow mainWindow(sf::VideoMode(windowDimension.width, windowDimension.height, 32), "AlgoVis");
+
+	Visualizator vis;
+
+	while (mainWindow.isOpen()) {
+		sf::Event e;
+		while (mainWindow.pollEvent(e)) {
+			if (e.type == sf::Event::Closed) {
+				mainWindow.close();
+			}
+			vis.handleInput(e);
+		}
+
+		vis.step();
+
+		mainWindow.clear();
+		mainWindow.draw(vis);
+		mainWindow.display();
+	}
+}
+
+/* 
 template <typename T>
 void print_vec(std::vector<T> const& vec) {
 	std::cout << "{ ";
@@ -38,3 +70,4 @@ int main() {
 	print_vec(vec);
 	std::cin.get();
 }
+*/
