@@ -123,7 +123,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ArrayDrawer.cpp" />
     <ClCompile Include="HUD.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Visualizator.cpp" />
@@ -133,12 +132,14 @@
     <ClInclude Include="AlgoManager.hpp" />
     <ClInclude Include="ArrayDrawer.hpp" />
     <ClInclude Include="HUD.hpp" />
+    <ClInclude Include="SelectionSort.hpp" />
+    <ClInclude Include="SortAlgorithmFactory.hpp" />
     <ClInclude Include="TickWatcher.hpp" />
     <ClInclude Include="Visualizator.hpp" />
     <ClInclude Include="AlgoWatcher.hpp" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="Settings.hpp" />
-    <ClInclude Include="sorts.hpp" />
+    <ClInclude Include="SortAlgorithm.hpp" />
     <ClInclude Include="utils.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,6 +1,7 @@
 #pragma once
 #include <chrono>
 #include <iostream>
+#include <thread>
 
 ///	<summary>
 ///	Helper class used to manage and synchronize code with tick time
@@ -8,11 +9,12 @@
 /// </summary>
 template <typename TimeUnit = std::milli>
 class TickWatcher {
+	using NumberT = unsigned long long;
 	using Timer = std::chrono::high_resolution_clock;
-	using Duration = std::chrono::duration<unsigned, TimeUnit>;
+	using Duration = std::chrono::duration<NumberT, TimeUnit>;
 	using TimePoint = std::chrono::time_point<Timer>;
 public:
-	TickWatcher(unsigned tickrate) {
+	TickWatcher(NumberT tickrate) {
 		setTickrate(tickrate);
 	}
 
@@ -20,16 +22,16 @@ public:
 	/// Sets tick rate for further use
 	/// </summary>
 	/// <param name="hertz">Tick frequency</param>
-	void setTickrate(unsigned hertz) {
+	void setTickrate(NumberT hertz) {
 		double tick_time_seconds = 1. / static_cast<double>(hertz);
-		m_tick_time = Duration{ static_cast<unsigned>(tick_time_seconds * static_cast<double>(TimeUnit::den)) };
+		m_tick_time = Duration{ static_cast<NumberT>(tick_time_seconds * static_cast<double>(TimeUnit::den)) };
 	}
 
 	/// <summary>
 	/// Sets time for a tick
 	/// <param name="time">Time, unit as passed in TimeUnit template argument</param>
 	/// </summary>
-	void setTickTime(unsigned time) {
+	void setTickTime(NumberT time) {
 		m_tick_time = Duration{ time };
 	}
 
@@ -43,7 +45,7 @@ public:
 	/// <summary>
 	/// Gets tick time (in TimeUnit)
 	/// </summary>
-	unsigned getTickTime() const {
+	NumberT getTickTime() const {
 		return m_tick_time.count();
 	}
 
@@ -71,6 +73,24 @@ public:
 		}
 		else {
 			return false;
+		}
+	}
+
+	/// <summary>
+	/// Blocks current thread for one tick
+	/// </summary>
+	void waitTick() {
+		std::this_thread::sleep_for(m_tick_time);
+		nextTick();
+	}
+
+	/// <summary>
+	/// Blocks current thread for specified amount of ticks
+	/// </summary>
+	/// <param name="ticks">Amount of tick to sleep for</param>
+	void waitTicks(NumberT ticks) {
+		for (NumberT i = 0; i < ticks; i++) {
+			waitTick();
 		}
 	}
 

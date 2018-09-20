@@ -6,35 +6,29 @@ class AlgoWatcher;
 
 template <typename T>
 class AlgoManager {
-	using uint = unsigned;
 
 public:
-	AlgoManager(AlgoWatcher<T>* parent, unsigned long long sleep_time) :
-		m_parent{ parent }, m_comparisons{ 0 }, m_copies{ 0 }, m_iteration_count{ 0 }, m_sleep_time{ sleep_time }
-	{}
+	struct AlgoData {
+		unsigned comparisons{ 0 };
+		unsigned copies{ 0 };
+		unsigned iteration_count{ 0 };
+	};
 
-	void increaseComparisonsCount(uint count = 1) { m_comparisons += count; }
-	void increaseCopiesCount(uint count = 1) { m_copies += count; }
-	void increaseIterationCount(uint count = 1) { m_iteration_count += count; }
+	AlgoManager(AlgoWatcher<T>* parent) : m_parent{ parent } {}
 
-	uint getComparisonsCount() const { return m_comparisons; }
-	uint getCopiesCount() const { return m_copies; }
-	uint getIterationCount() const { return m_iteration_count; }
+	void increaseComparisonsCount(unsigned count = 1) { m_data.comparisons += count; }
+	void increaseCopiesCount(unsigned count = 1) { m_data.copies += count; }
+	void increaseIterationCount(unsigned count = 1) { m_data.iteration_count += count; }
 
-	void callHandler() {
-		m_parent->m_handler(*(m_parent->m_data), m_comparisons, m_copies, m_iteration_count);
-	}
+	AlgoData getAlgoData() const { return m_data; }
 
-	void sleep() {
-		std::this_thread::sleep_for(std::chrono::microseconds(m_sleep_time));
+	void reset() { 
+		m_data.comparisons = 0;
+		m_data.copies = 0;
+		m_data.iteration_count = 0;
 	}
 
 private:
-	AlgoWatcher<T>* m_parent;
-
-	uint m_comparisons;
-	uint m_copies;
-	uint m_iteration_count;
-
-	unsigned long long m_sleep_time;
+	AlgoWatcher<T>* m_parent{ nullptr };
+	AlgoData m_data{};
 };

@@ -3,42 +3,40 @@
 #include <thread>
 #include <vector>
 #include <chrono>
+#include <memory>
+#include <string>
 #include "AlgoManager.hpp"
+#include "SortAlgorithmFactory.hpp"
+#include "SortAlgorithm.hpp"
 
 template <typename T>
 class AlgoWatcher {
-	using uint = unsigned;
+	friend class AlgoManager<T>;
 
 public:
-	using SortF = void(std::vector<T>& data, AlgoManager<T>& manager);
-	using HandlerF = void(std::vector<T>& data_view, uint comparisons, uint copies, uint iteration_count);
-
-	AlgoWatcher(std::vector<T>* data = nullptr)
-		: m_data{ data }
-	{}
-
-	void setData(std::vector<T>* data) { m_data = data; }
-
-	void setHandler(HandlerF handler) { 
-		m_handler = handler;
+	void setData(std::vector<T> data) {
+		m_data = data;
+		m_algo->setData(&m_data);
 	}
 
-	void setSort(SortF sort) {
-		m_sort = sort;
+	bool setSort(std::string const& sort) {
+		m_algo = SortAlgorithmFactory::createSort<T>(sort);
+		if (!m_algo) return false;
+
+		m_algo->setManager(&m_manager);
+		m_manager.reset();
+		return true;
 	}
 
-	std::vector<T> const& getData() { return *m_data; }
+	std::vector<T> const& getData() { return m_data; }
+	typename AlgoManager<T>::AlgoData getAlgoData() const { return m_manager.getAlgoData(); }
 
-	void runAlgo(unsigned sleep_time = 1) {
-		AlgoManager<T> manager(this, sleep_time);
-		m_sort(*m_data, manager);
-	}
+	void start() { m_algo->begin(); }
+	bool step() { return m_algo->step(); }
 
 private:
-	std::vector<T>* m_data;
-	std::function<HandlerF> m_handler;
-	std::function<SortF> m_sort;
-
-	friend class AlgoManager<T>;
+	std::vector<T> m_data;
+	AlgoManager<T> m_manager{ this };
+	std::unique_ptr<SortAlgorithm<T>> m_algo;
 };
 
