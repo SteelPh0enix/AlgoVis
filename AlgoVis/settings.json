@@ -1,13 +1,13 @@
 {
   "window": {
-    "width": 1360,
-    "height": 700
+    "width": 1800,
+    "height": 950
   },
 
   "algos": {
     "selection": {
       "enabled": true,
-      "samples": 200,
+      "samples": 500,
       "sleep": 10
     }
   }

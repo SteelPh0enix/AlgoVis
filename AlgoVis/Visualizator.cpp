@@ -94,13 +94,13 @@ void Visualizator::draw(sf::RenderTarget& target, sf::RenderStates states) const
 bool Visualizator::setToCurrentAlgorithm() {
 	 bool success = m_algoWatcher.setSort(m_runningAlgo->first);
 	 if (success) {
-		 m_hud.reset();
-		 m_hud.updateAlgoName(m_runningAlgo->first);
-		 m_hud.setSleepDelay(m_runningAlgo->second.sleepTime, utils::getTimeUnit<TimeT>());
-
 		 m_ticker.setTickTime(m_runningAlgo->second.sleepTime);
 
 		 generateAndSetData();
+
+		 m_hud.reset();
+		 m_hud.updateAlgoInfo(m_runningAlgo->first, m_runningAlgo->second.sleepTime, utils::getTimeUnit<TimeT>(), m_runningAlgo->second.samplesCount);
+
 		 m_algoWatcher.start();
 	 }
 
@@ -128,11 +128,11 @@ void Visualizator::updateHUD() {
 }
 
 void Visualizator::pause() {
-	m_hud.updateAlgoName(m_runningAlgo->first + std::string(" [paused]"));
+	m_hud.showTemporaryMessage("[paused]");
 	m_state = State::Paused;
 }
 
 void Visualizator::resume() {
-	m_hud.updateAlgoName(m_runningAlgo->first);
+	m_hud.hideTemporaryMessage();
 	m_state = State::Running;
 }

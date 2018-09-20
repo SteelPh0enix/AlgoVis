@@ -8,11 +8,13 @@ class HUD : public sf::Drawable {
 public:
 	HUD();
 
-	void updateAlgoName(std::string const& name);
+	void updateAlgoInfo(std::string const& name, unsigned long long time, std::string const& unit, std::size_t samples);
+	void showTemporaryMessage(std::string const& message);
+	void hideTemporaryMessage();
+
 	void updateComparisons(unsigned comparisons);
 	void updateCopies(unsigned copies);
 	void updateIterationCount(unsigned count);
-	void setSleepDelay(unsigned long long time, std::string const& unit);
 	void reset();
 
 	void setPosition(float x, float y, float spacing = 5.f);
@@ -22,11 +24,12 @@ public:
 
 private:
 	sf::Font m_font{};
-	sf::Text m_algoNameText{};
+	sf::Text m_algoInfoText{};
 	sf::Text m_comparisonsText{};
 	sf::Text m_copiesText{};
 	sf::Text m_iterCountText{};
-	sf::Text m_sleepDelayText{};
+
+	std::string m_algoInfoString{};
 
 	float m_spacing{ 5.f };
 };
