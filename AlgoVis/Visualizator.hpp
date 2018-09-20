@@ -15,6 +15,7 @@ class Visualizator : public sf::Drawable {
 	};
 
 	using DataT = int;
+	using TimeT = std::milli;
 
 public:
 	void handleInput(sf::Event e);
@@ -36,7 +37,7 @@ private:
 
 	HUD m_hud;
 	ArrayDrawer<DataT> m_drawer;
-	TickWatcher<std::milli> m_ticker{ 100 };
+	TickWatcher<TimeT> m_ticker{ 100 };
 	AlgoWatcher<DataT> m_algoWatcher{};
 
 	Settings::Algorithms m_algorithms{};

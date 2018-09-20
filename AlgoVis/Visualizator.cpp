@@ -3,6 +3,7 @@
 #include <chrono>
 #include <algorithm>
 #include <random>
+#include "utils.hpp"
 
 void Visualizator::handleInput(sf::Event e) {
 	if (e.type == sf::Event::KeyReleased) {
@@ -25,6 +26,7 @@ void Visualizator::step() {
 		if (m_state == State::Running) {
 			if (m_algoWatcher.step()) {
 				updateHUD();
+				m_drawer.updateHighlights(m_algoWatcher.getAlgoData().highlighted);
 			}
 			else {
 				m_state = State::Finished;
@@ -94,6 +96,7 @@ bool Visualizator::setToCurrentAlgorithm() {
 	 if (success) {
 		 m_hud.reset();
 		 m_hud.updateAlgoName(m_runningAlgo->first);
+		 m_hud.setSleepDelay(m_runningAlgo->second.sleepTime, utils::getTimeUnit<TimeT>());
 
 		 m_ticker.setTickTime(m_runningAlgo->second.sleepTime);
 

@@ -39,6 +39,8 @@ namespace utils {
 		else if (std::is_same<TimeUnit, std::ratio<3600>>()) {
 			return "h";
 		}
+
+		return "";
 	}
 
 	template <typename T>

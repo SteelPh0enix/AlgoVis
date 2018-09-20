@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <unordered_map>
 #include "Settings.hpp"
 
 template <typename T>
@@ -17,12 +18,17 @@ public:
 		setSamplesCount(vec->size());
 	}
 
+	void updateHighlights(std::unordered_map<std::size_t, sf::Color> const& highlights) {
+		m_highlighted = highlights;
+	}
+
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
 		sf::RectangleShape bar{};
 		sf::Vector2f barSize{ m_barWidth, 0 };
 		sf::Vector2f barPosition{ 0.f, m_windowHeight - barSize.y };
 
-		bar.setFillColor(sf::Color(0xCC, 0xCC, 0xCC));
+		auto fillColor = sf::Color(0xCC, 0xCC, 0xCC);
+		bar.setFillColor(fillColor);
 		bar.setOutlineThickness(1);
 		bar.setOutlineColor(sf::Color(0x50, 0x50, 0x50));
 
@@ -32,6 +38,14 @@ public:
 
 			bar.setPosition(barPosition);
 			bar.setSize(barSize);
+
+			auto highlight = m_highlighted.find(i);
+			if (highlight != m_highlighted.end()) {
+				bar.setFillColor(highlight->second);
+			}
+			else {
+				bar.setFillColor(fillColor);
+			}
 
 			barPosition.x += m_barWidth + (bar.getOutlineThickness() * 2);
 
@@ -57,6 +71,8 @@ private:
 	float m_barWidth{ 0 };
 
 	float m_windowHeight{ 0 };
+
+	std::unordered_map<std::size_t, sf::Color> m_highlighted{};
 	
 	std::vector<T> const* m_vec;
 };

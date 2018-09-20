@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Pliki nagłówkowe\Algorithms">
+      <UniqueIdentifier>{cafc9286-2a6d-4758-bb06-51c7ee39ad00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,14 +59,14 @@
     <ClInclude Include="TickWatcher.hpp">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
+    <ClInclude Include="SelectionSort.hpp">
+      <Filter>Pliki nagłówkowe\Algorithms</Filter>
+    </ClInclude>
     <ClInclude Include="SortAlgorithm.hpp">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Pliki nagłówkowe\Algorithms</Filter>
     </ClInclude>
     <ClInclude Include="SortAlgorithmFactory.hpp">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="SelectionSort.hpp">
-      <Filter>Pliki nagłówkowe</Filter>
+      <Filter>Pliki nagłówkowe\Algorithms</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

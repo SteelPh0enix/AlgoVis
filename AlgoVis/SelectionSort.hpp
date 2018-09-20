@@ -23,6 +23,10 @@ public:
 			utils::swap((*Base::data)[minimalElementIndex], (*Base::data)[i]);
 			Base::manager->increaseCopiesCount(3);
 			Base::manager->increaseIterationCount();
+
+			Base::manager->resetHighlighted();
+			Base::manager->highlightItem(minimalElementIndex, sf::Color(0xF4, 0xA7, 0x42));
+			Base::manager->highlightItem(i, sf::Color(0x42, 0xE5, 0xF4));
 			i++;
 			return true;
 		}

@@ -14,6 +14,8 @@ class TickWatcher {
 	using Duration = std::chrono::duration<NumberT, TimeUnit>;
 	using TimePoint = std::chrono::time_point<Timer>;
 public:
+	using TimeUnitT = TimeUnit;
+
 	TickWatcher(NumberT tickrate) {
 		setTickrate(tickrate);
 	}
