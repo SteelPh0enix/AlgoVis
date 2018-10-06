@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "exception": "cpp",
+        "algorithm": "cpp",
+        "random": "cpp"
+    },
+    "cmake.generator": "MinGW Makefiles",
+    "cmake.installPrefix": "${workspaceRoot/install}",
+    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
+    "cmake.configureSettings": {
+        "SFML_INCLUDE_DIR": "D:/C++/SFML-2.5.0-sources/All/include",
+        "SFML_LIBRARY_DIR": "D:/C++/SFML-2.5.0-sources/All/lib"
+    },
+    "C_Cpp.configurationWarnings": "Disabled"
+}

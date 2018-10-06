@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "AlgoManager.hpp"
+#include "../AlgoManager.hpp"
 
 template <typename T>
 class SortAlgorithm {
