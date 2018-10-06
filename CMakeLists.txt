@@ -4,7 +4,10 @@ cmake_minimum_required(VERSION 3.10)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS_DEBUG "-g -O2 -Wall -Wextra -Wpedantic")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall -Wextra -Wpedantic")
-set(CMAKE_BUILD_TYPE Debug)
+
+if (NOT DEFINED CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Set the type of build" FORCE)
+endif()
 
 project(AlgoVis)
 
@@ -43,4 +46,6 @@ endif()
 # Link libraries to executable
 target_link_libraries(${PROJECT_NAME} ${SFML_LIBS})
 
-install (TARGETS ${PROJECT_NAME} DESTINATION bin)
+install(TARGETS ${PROJECT_NAME} DESTINATION ".")
+install(FILES Assets/ShareTechMono-Regular.ttf DESTINATION "Assets/")
+install(FILES settings.json DESTINATION ".")

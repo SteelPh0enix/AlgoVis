@@ -37,3 +37,4 @@ build/
 CMakeFiles/
 CMakeCache.txt
 .vscode/
+clean_build/
