@@ -15,6 +15,19 @@ void Visualizator::handleInput(sf::Event e) {
       } else if (m_state == State::Idle) {
         start();
       }
+    } else if (e.key.code == sf::Keyboard::Right) {
+      if (m_algorithms.empty()) {
+        start();
+      }
+
+      if (nextAlgorithm()) {
+        m_state = State::Running;
+      }
+    } else if (e.key.code == sf::Keyboard::Left) {
+      if (m_algorithms.empty()) return;
+      if (previousAlgorithm()) {
+        m_state = State::Running;
+      }
     }
   }
 }
@@ -29,18 +42,18 @@ void Visualizator::step() {
         m_state = State::Finished;
       }
 
-    } else if (m_state == State::Finished) {
-      // Wait 3 seconds
-      for (unsigned i = 0; i < 30; i++) {
-        while (!m_ticker.tick()) {
-        }
-      }
+      // } else if (m_state == State::Finished) {
+      //   // Wait 3 seconds
+      //   for (unsigned i = 0; i < 50; i++) {
+      //     while (!m_ticker.tick()) {
+      //     }
+      //   }
 
-      if (nextAlgorithm()) {
-        m_state = State::Running;
-      } else {
-        m_state = State::Idle;
-      }
+      //   if (nextAlgorithm()) {
+      //     m_state = State::Running;
+      //   } else {
+      //     m_state = State::Idle;
+      //   }
     }
   }
 }

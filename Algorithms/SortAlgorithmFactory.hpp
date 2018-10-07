@@ -15,6 +15,7 @@ class SortAlgorithmFactory {
   template <typename T>
   static std::unique_ptr<SortAlgorithm<T>> createSort(std::string const& name) {
     if (name == "selection") return std::make_unique<SelectionSort<T>>();
+    if (name == "bubble") return std::make_unique<BubbleSort<T>>();
 
     return std::make_unique<DummySort<T>>();
   }
