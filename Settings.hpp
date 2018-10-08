@@ -1,5 +1,5 @@
 #pragma once
-#include <map>
+#include <vector>
 #include <string>
 #include <utility>
 #include "json.hpp"
@@ -7,6 +7,7 @@
 class Settings {
  public:
   struct AlgoInfo {
+    std::string name{""};
     bool enabled{false};
     unsigned samplesCount{0};
     unsigned long long sleepTime{0};
@@ -17,7 +18,7 @@ class Settings {
     unsigned height{0};
   };
 
-  using Algorithms = std::map<std::string, AlgoInfo>;
+  using Algorithms = std::vector<AlgoInfo>;
 
   Settings(Settings&) = delete;
   Settings(Settings&&) = delete;

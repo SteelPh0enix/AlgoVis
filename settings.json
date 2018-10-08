@@ -3,16 +3,24 @@
     "width": 1300,
     "height": 700
   },
-  "algos": {
-    "bubble": {
+  "algos": [
+    {
+      "name": "bubble",
       "enabled": true,
       "samples": 200,
       "sleep": 60
     },
-    "selection": {
+    {
+      "name": "selection",
       "enabled": true,
       "samples": 200,
       "sleep": 60
+    },
+    {
+      "name": "selection",
+      "enabled": true,
+      "samples": 500,
+      "sleep": 10
     }
-  }
+  ]
 }

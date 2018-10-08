@@ -103,16 +103,16 @@ void Visualizator::draw(sf::RenderTarget& target,
 }
 
 bool Visualizator::setToCurrentAlgorithm() {
-  bool success = m_algoWatcher.setSort(m_runningAlgo->first);
+  bool success = m_algoWatcher.setSort(m_runningAlgo->name);
   if (success) {
-    m_ticker.setTickTime(m_runningAlgo->second.sleepTime);
+    m_ticker.setTickTime(m_runningAlgo->sleepTime);
 
     generateAndSetData();
 
     m_hud.reset();
-    m_hud.updateAlgoInfo(m_runningAlgo->first, m_runningAlgo->second.sleepTime,
+    m_hud.updateAlgoInfo(m_runningAlgo->name, m_runningAlgo->sleepTime,
                          utils::getTimeUnit<TimeT>(),
-                         m_runningAlgo->second.samplesCount);
+                         m_runningAlgo->samplesCount);
 
     m_algoWatcher.start();
   }
@@ -121,7 +121,7 @@ bool Visualizator::setToCurrentAlgorithm() {
 }
 
 void Visualizator::generateAndSetData() {
-  std::vector<DataT> data(m_runningAlgo->second.samplesCount);
+  std::vector<DataT> data(m_runningAlgo->samplesCount);
 
   int i = 0;
   std::generate(data.begin(), data.end(), [&i]() { return i++; });

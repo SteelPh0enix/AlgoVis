@@ -16,22 +16,26 @@ bool Settings::load(std::string const& filename) {
 
   json_file >> json;
 
+  // Window settings
   {
     auto windowSettings = json.at("window");
     m_winDimensions.width = windowSettings.at("width").get<unsigned>();
     m_winDimensions.height = windowSettings.at("height").get<unsigned>();
   }
 
+  // Algorithm settings
   {
     auto algosSettings = json.at("algos");
+    m_algos.clear();
     for (auto it = algosSettings.begin(); it != algosSettings.end(); it++) {
       Settings::AlgoInfo info;
 
+      info.name = it->at("name").get<std::string>();
       info.enabled = it->at("enabled").get<bool>();
       info.samplesCount = it->at("samples").get<unsigned>();
       info.sleepTime = it->at("sleep").get<unsigned long long>();
 
-      m_algos.insert({it.key(), info});
+      m_algos.push_back(info);
     }
   }
 
