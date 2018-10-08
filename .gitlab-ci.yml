@@ -1,8 +1,9 @@
 before_script:
-  apt update && apt install build-essential sfml cmake
+  - apt update
+  - apt install build-essential sfml cmake
 
 after_script:
-  rm -rf build_clean
+  - rm -rf build_clean
 
 stages:
   - build
