@@ -1,0 +1,16 @@
+before_script:
+  apt update && apt install build-essential sfml cmake
+
+after_script:
+  rm -rf build_clean
+
+stages:
+  - build
+
+generate_makefile:
+  stage: build
+  script: mkdir build_clean && cd build_clean && cmake -G"Unix Makefiles" -DCMAKE_BUILD_TYPE="Release" ..
+
+build_program:
+  stage: build
+  script: make
